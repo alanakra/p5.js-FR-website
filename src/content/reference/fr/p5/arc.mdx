@@ -1,0 +1,255 @@
+---
+title: arc
+module: Shape
+submodule: 2D Primitives
+file: src/core/shape/2d_primitives.js
+description: >
+  <p>Dessine un arc.</p>
+
+  <p>Un arc est un morceau d'ellipse défini par les paramètres <code>x</code>,
+  <code>y</code>, <code>w</code> et <code>h</code>. <br> 
+  
+  <code>x</code> et <code>y</code> définisent la position
+  du centre de l'arc. <code>w</code> and
+
+  <code>h</code> définissent la hauteur et la largeur de l'arc. Consultez
+
+  <a href="/reference/p5/ellipse/">ellipse()</a> et
+
+  <a href="/reference/p5/ellipseMode/">ellipseMode()</a> pour plus de détails.</p>
+
+  <p>Les 5e et 6e paramètres, <code>start</code> et <code>stop</code>
+  définissent les angles
+
+  entre lesquels l'arc doit être dessiné. Les arcs sont toujours dessiné dans le sens des aiguilles d'une montre de
+
+  <code>start</code> à <code>stop</code>. Les angles sont toujours définis en radians.</p>
+
+  <p>Le 7e paramètre, <code>mode</code> est optionnel. Il détermine le style de remplissage de l'arc. Les styles de remplissage sont le demi-cercle (<code>OPEN</code>), le demi-cercle fermé
+
+  (<code>CHORD</code>) ou le segment de tarte fermé (<code>PIE</code>).</p>
+
+  <p>Le 8e paramètre, <code>detail</code> est lui aussi optionnel. Il détermine le nombre de sommets utilisés pour dessiner l'arc en mode WebGL. La valeur par défaut est 25.</p>
+
+line: 102
+isConstructor: false
+itemtype: method
+example:
+  - |-
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      arc(50, 50, 80, 80, 0, PI + HALF_PI);
+
+      describe('A white circle on a gray canvas. The top-right quarter of the circle is missing.');
+    }
+    </code>
+    </div>
+  - |-
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      arc(50, 50, 80, 40, 0, PI + HALF_PI);
+
+      describe('A white ellipse on a gray canvas. The top-right quarter of the ellipse is missing.');
+    }
+    </code>
+    </div>
+  - |-
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      // Bottom-right.
+      arc(50, 55, 50, 50, 0, HALF_PI);
+
+      noFill();
+
+      // Bottom-left.
+      arc(50, 55, 60, 60, HALF_PI, PI);
+
+      // Top-left.
+      arc(50, 55, 70, 70, PI, PI + QUARTER_PI);
+
+      // Top-right.
+      arc(50, 55, 80, 80, PI + QUARTER_PI, TWO_PI);
+
+      describe(
+        'A shattered outline of an circle with a quarter of a white circle at the bottom-right.'
+      );
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      // Default fill mode.
+      arc(50, 50, 80, 80, 0, PI + QUARTER_PI);
+
+      describe('A white circle with the top-right third missing. The bottom is outlined in black.');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      // OPEN fill mode.
+      arc(50, 50, 80, 80, 0, PI + QUARTER_PI, OPEN);
+
+      describe(
+        'A white circle missing a section from the top-right. The bottom is outlined in black.'
+      );
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      // CHORD fill mode.
+      arc(50, 50, 80, 80, 0, PI + QUARTER_PI, CHORD);
+
+      describe('A white circle with a black outline missing a section from the top-right.');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      background(200);
+
+      // PIE fill mode.
+      arc(50, 50, 80, 80, 0, PI + QUARTER_PI, PIE);
+
+      describe('A white circle with a black outline. The top-right third is missing.');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100, WEBGL);
+
+      background(200);
+
+      // PIE fill mode.
+      arc(0, 0, 80, 80, 0, PI + QUARTER_PI, PIE);
+
+      describe('A white circle with a black outline. The top-right third is missing.');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100, WEBGL);
+
+      background(200);
+
+      // PIE fill mode with 5 vertices.
+      arc(0, 0, 80, 80, 0, PI + QUARTER_PI, PIE, 5);
+
+      describe('A white circle with a black outline. The top-right third is missing.');
+    }
+    </code>
+    </div>
+
+    <div>
+    <code>
+    function setup() {
+      createCanvas(100, 100);
+
+      describe('A yellow circle on a black background. The circle opens and closes its mouth.');
+    }
+
+    function draw() {
+      background(0);
+
+      // Style the arc.
+      noStroke();
+      fill(255, 255, 0);
+
+      // Update start and stop angles.
+      let biteSize = PI / 16;
+      let startAngle = biteSize * sin(frameCount * 0.1) + biteSize;
+      let endAngle = TWO_PI - startAngle;
+
+      // Draw the arc.
+      arc(50, 50, 80, 80, startAngle, endAngle, PIE);
+    }
+    </code>
+    </div>
+class: p5
+params:
+  - name: x
+    description: |
+      <p>coordonnée x de l'ellipse de l'arc.</p>
+    type: Number
+  - name: 'y'
+    description: |
+      <p>coordonnée y de l'ellipse de l'arc.</p>
+    type: Number
+  - name: w
+    description: |
+      <p>largeur de l'arc par défault.</p>
+    type: Number
+  - name: h
+    description: |
+      <p>hauteur de l'arc par défault.</p>
+    type: Number
+  - name: start
+    description: |
+      <p>angle de départ de l'arc, défini en radians.</p>
+    type: Number
+  - name: stop
+    description: |
+      <p>angle d'arrêt de l'arc, défini en radians</p>
+    type: Number
+  - name: mode
+    description: |
+      <p>Paramètre optionnel pour déterminer le style de remplissage de l'arc. Cela peut-être CHORD, PIE, ou bien OPEN.</p>
+    type: Constant
+    optional: true
+  - name: detail
+    description: |
+      <p>Paramètre uniquement disponible en mode WebGL. Il détermine le nombre de sommets utilisés pour dessiner l'arc. La valeur par défault est 25. Aucun trait ne sera dessiné pour un détail supérieur à 50.</p>
+    type: Integer
+    optional: true
+chainable: true
+---
+
+
+# arc
